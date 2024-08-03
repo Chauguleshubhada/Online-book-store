@@ -1,0 +1,178 @@
+{% extends "adminHome.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        * {
+            font-size: 1.2rem;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        body {
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+        
+        table {
+            margin: 0 auto;
+            width: 90%;
+            max-width: 1000px;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            margin-right: 5px;
+        }
+        
+        .modal-dialog {
+            max-width: 400px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <br><br><br><br>
+    <center>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Books</button>
+    </center>
+    <hr/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:10%;">Book Id</th>
+                <th>Book Name</th>
+                <th>Price</th>
+                <th>Author name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Book Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] }}</td>
+                <td><img src="{{ url_for('static', filename=book[5]) }}" height="100" width="100" /></td>
+                <td>{{ book[6] }}</td>
+                <td>
+                    <form method="post" action="/DeleteBook/{{ book[0] }}">
+                        <input type="hidden" value="{{ book[0] }}" name="book_id">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ book[0] }}">
+                            Delete
+                        </button>
+                        <a href="/EditBook/{{ book[0] }}" class="btn btn-primary">Edit</a>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{ book[0] }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ book[0] }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel{{ book[0] }}">Delete Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this book?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal for adding a new book -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="/AddBooks">
+                        <div class="mb-3">
+                            <label for="bname" class="col-form-label">Enter Book Name:</label>
+                            <input type="text" class="form-control" id="bname" name="book_name">
+
+                            <label for="bprice" class="col-form-label">Price:</label>
+                            <input type="number" class="form-control" id="bprice" name="price">
+
+                            <label for="Aname" class="col-form-label">Author Name</label>
+                            <input type="text" class="form-control" id="Aname" name="Author_Name">
+
+                            <label for="bdesc" class="col-form-label">Description</label>
+                            <input type="text" class="form-control" id="bdesc" name="description">
+
+                            <label for="img" class="col-form-label">Select Image</label>
+                            <input type="file" class="form-control" id="img" name="image">
+
+                            <label for="bcat" class="col-form-label">Select Book Category</label>
+                            <select class="form-control" name="book_category" id="bcat">
+                                {% for cat in cats %}
+                                    <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+</head>
+
+<body>
+    <div class="center">
+        <h1>Login</h1>
+        <div id="closeBtn" class="close-btn">✖</div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul type="none" style="color:green; margin-left: 40px;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+        <form method="post">
+            <div class="txt_field">
+                <input type="text" name="uname" required/>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="pwd" required/>
+
+                <span></span>
+                <label>Password</label>
+            </div>
+            <div class="pass"> <a href="/forgotpassword">Forgot Password?</a></div><br>
+            <input type="submit" value="Login" /><br> <br><br>
+            <label for=""></label>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("closeBtn").addEventListener("click", function() {
+            window.close();
+            window.location.href = "/";
+        });
+    </script>
+
+</body>
+
+</html>

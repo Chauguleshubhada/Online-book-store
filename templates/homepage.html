@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/static/css/modal.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- header section -->
+    <header>
+
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="/" class="logo">Book<span>.</span></a>
+        <nav class="navbar">
+            <a href="/">home</a>
+            <a href="#about">about</a>
+            <a href="#products">product</a>
+            <a href="#Author">Author</a>
+            <a href="#contact">contact</a>
+        </nav>
+        <div class="icons">
+            <div class="dropdown">
+                <i class="fa-solid fa-filter"></i>
+                <div class="dropdown-content">
+                    {% for cat in cats%}
+                    <a href="/showbooks/{{cat[0]}}" style="font-size: larger;">{{cat[1]}}</a> {% endfor %}
+                </div>
+            </div>
+
+            <a href="/showlikes" class="fas fa-heart"></a>
+            <a href="/showCartItems" class="fas fa-shopping-cart"></a>
+            <div class="dropdown">
+                <i href="#" class="fas fa-user"></i>
+                <div class="dropdown-content">
+                    {%if "uname" in session%}
+                    <li class="active"><a href="/">{{session["uname"]}}</a></li>
+                    <a href="/Logout" class="fa fa-sign-out" style="font-size: small; text-transform:initial;"> logout</a> {%else%}
+                    <a href="/Login">User</a>
+                    <a href="/adminLogin">Admin</a> {%endif%}
+                </div>
+            </div>
+        </div>
+    </header>
+    {%block content%}
+
+    <!-- home section -->
+    <section class="home" id="home">
+        <div class="content">
+            <h3>Book Store </h3>
+            <span>
+                "Adventure. Imagination. Wisdom."</span>
+            <p>The book store, nestled in the city's heart, welcomes with its inviting ambiance and diverse collection. Aromas of aged paper and freshly brewed coffee fill the air. Cozy reading nooks beckon, while knowledgeable staff offer recommendations.
+                More than a shop, it's a cultural hub where stories thrive, passions ignite, and connections flourish.</p>
+            <a href="#products" class="btn">shop now</a>
+        </div>
+    </section>
+    <!-- About section -->
+    <section class="about" id="about">
+        <h1 class="heading"><span>about</span> us </h1>
+        <div class="row">
+            <div class="video-container">
+                <video src="/static/images/Book_vid.mp4" loop autoplay muted></video>
+                <h3>Best Book seller</h3>
+            </div>
+            <div class="content">
+                <h3>why choose us</h3>
+                <p>Established in 2020,Book stands as a cherished community hub, nurturing a passion for literature. Our shelves boast a diverse array of books across genres, inviting patrons to explore and discover.</p>
+                <p>Cozy reading nooks and a warm atmosphere create an inviting space for all readers. Join us for author events, book clubs, and other gatherings as we celebrate the joy of reading together, fostering connections and inspiring imaginations.</p>
+                <a href="#" class="btn">learn more</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Icons sections -->
+    <section class="icons-container">
+        <div class="icons">
+            <img src="/static/images/delivery.png" alt="delivery">
+            <div class="info">
+                <h3>free delivery</h3>
+                <span>on all orders</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="/static/images/return.png" alt="return">
+            <div class="info">
+                <h3>10 days returns</h3>
+                <span>moneyback guarantee</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="/static/images/gift.png" alt="gifts">
+            <div class="info">
+                <h3>offer & gifts</h3>
+                <span>on all orders</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="/static/images/payment.png" alt="payment">
+            <div class="info">
+                <h3>secure payments</h3>
+                <span>protected by paypal</span>
+            </div>
+        </div>
+    </section>
+    <!-- product section -->
+    <section class="products" id="products">
+        <h1 class="heading">laetst <span>products</span></h1>
+        <div class="box-container">
+            {% for book in books %}
+            <div class="box">
+                <div class="image">
+                    <img src="{{ url_for('static', filename=book[5])}}" alt="flower">
+                    <div class="icons">
+                        <a href="/like/{{book[0]}}" class="fas fa-heart"></a>
+                        <input type="hidden" name="book_id" value="{{book[0]}}" />
+                        <a href="/ViewDetails/{{book[0]}}" class="cart-btn">View Details</a>
+                        <a href="#" class="fas fa-save"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>{{book[1]}}</h3>
+                    <div class="price">Price:{{book[2]}}<br>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <!-- contact section -->
+    <section class="contact" id="contact">
+        <h1 class="heading"><span>contact</span>us</h1>
+        <div class="row">
+            <form id="contact-form" method="post" action="/contact">
+                <input type="text" placeholder="name" class="box" name="name" required>
+                <input type="email" placeholder="email" class="box" name="email" required>
+                <input type="text" placeholder="mobile number" class="box" name="mobile_number" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" required>
+                <textarea name="message" class="box" placeholder="message" id="" cols="30" rows="10" required></textarea>
+                <input type="submit" value="send message" class="btn">
+            </form>
+            <div class="image">
+                <img src="/static/images/contact_us.jpg" alt="">
+            </div>
+        </div>
+    </section>
+    <div id="myModal" class="modal" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message">{{ message }}</p>
+        </div>
+    </div>
+    {%endblock%}
+
+    <!-- footer section -->
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="#home">home</a>
+                <a href="#about">about</a>
+                <a href="#products">products</a>
+                <a href="#author">Author</a>
+                <a href="#contact">contact</a>
+            </div>
+
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="/account">my account</a>
+                <a href="/Login">my order</a>
+                <a href="/showlikes">my favorite</a>
+            </div>
+
+            <div class="box">
+                <h3>locations</h3>
+                <a href="#">india</a>
+                <a href="#">USA</a>
+                <a href="#">japan</a>
+                <a href="#">france</a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#">+123-456-7890</a>
+                <a href="#">book@gmail.com</a>
+                <a href="#">mumbai,india-4090302</a>
+                <img src="/static/images/payment.jpg" alt="">
+            </div>
+        </div>
+        <div class="credit">created by <span>shubhada chaugule</span>| all rights reserved</div>
+    </section>
+
+    <script src="/static/js/modal.js"></script>
+</body>
+
+</html>

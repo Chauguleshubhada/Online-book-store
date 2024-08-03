@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Add Category</title>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add Book</button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="bname" class="col-form-label">Enter Book Name:</label>
+                                <input type="text" class="form-control" id="bname" name="book_name">
+
+                                <label for="bprice" class="col-form-label">Price:</label>
+                                <input type="number" class="form-control" id="bprice" name="price">
+
+                                <label for="Aname" class="col-form-label">Author Name</label>
+                                <input type="text" class="form-control" id="Aname" name="Author_Name">
+
+                                <label for="bdesc" class="col-form-label">Description</label>
+                                <input type="text" class="form-control" id="bdesc" name="description">
+
+                                <label for="img" class="col-form-label">Select Image</label>
+                                <input type="file" class="form-control" id="img" name="image">
+
+                                <label for="bcat" class="col-form-label">Select Book Category</label>
+                                <select name="book_category" id="bcat">
+                                    {%for cat in cats%}
+                                    <option value="{{cat[0]}}">{{cat[1]}}</option>
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Add Book">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</body>
+
+</html>

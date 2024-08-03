@@ -1,0 +1,73 @@
+ {% extends "homepage.html" %} {% block content %}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <link rel="stylesheet" href="/static/css/view_details.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Book Details</h2>
+        <div id="closeBtn" class="close-btn">✖</div>
+        <form method="post">
+
+            <table class="table">
+                <tr>
+                    <td>Book Name</td>
+                    <td>{{book[1]}}
+                        <input type="hidden" name="book_id" value="{{book[0]}}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>{{book[2]}}</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>{{book[4]}}</td>
+                </tr>
+                <tr>
+                    <td>Image</td>
+                    <td>
+                        <img src="{{ url_for('static', filename=book[5])}}" style="width:200px;height:200px" class="img-responsive" alt="Image">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td>{{book[6]}}</td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td>
+                        <select name="qty" class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="button btn-danger form-control" type="submit">Add To Cart</button>
+
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        document.getElementById("closeBtn").addEventListener("click", function() {
+            window.close();
+            window.location.href = "/";
+        });
+    </script>
+</body>
+
+</html>
+{% endblock %}

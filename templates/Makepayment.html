@@ -1,0 +1,93 @@
+{% extends "homepage.html" %} {% block content %}
+<style>
+    .container {
+        width: 50%;
+        margin: auto;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 130px;
+    }
+    
+    .table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .table td:first-child {
+        font-weight: bold;
+        width: 30%;
+    }
+    
+    input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    button[type="submit"] {
+        padding: 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #c82333;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 90px;
+        right: 240px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: #333;
+    }
+    
+    .close-btn:hover {
+        color: red;
+    }
+</style>
+
+<div class="container">
+    <form method="post">
+        <div id="closeBtn" class="close-btn">✖</div>
+        <table class="table">
+            <tr>
+                <td>Card No</td>
+                <td><input type="text" name="cardno" placeholder="Card No" required/></td>
+            </tr>
+            <tr>
+                <td>CVV</td>
+                <td><input type="text" name="cvv" required placeholder="CVV" /></td>
+            </tr>
+            <tr>
+                <td>Expiry</td>
+                <td><input type="text" name="expiry" placeholder="Expiry" required/></td>
+            </tr>
+            <tr>
+                <td>Total Amount</td>
+                <td><input type="text" name="total" value="{{ session['total'] }}" readonly/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button class="button btn-danger form-control" type="submit">Make Payment</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}
+<script>
+    document.getElementById("closeBtn").addEventListener("click", function() {
+        window.close();
+        window.location.href = "/";
+    });
+</script>

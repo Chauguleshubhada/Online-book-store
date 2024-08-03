@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- header section -->
+    <header>
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="#" class="logo">Book<span>.</span></a>
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="/showAllCategory">category</a>
+            <a href="/ShowAllBooks">Books</a>
+            <a href="/showAuthor">Author</a>
+        </nav>`
+        <div class="icons">
+            <div class="dropdown">
+                <a href="/showcontact" class="fa-solid fa-message"></a>
+            </div>
+
+            <div class="dropdown">
+                <i class="fas fa-user"></i>
+                <div class="dropdown-content">
+                    {%if "uname" in session%}
+                    <li class="active"><a href="/">{{session["uname"]}}</a></li>
+                    <a href="/Logout" class="fa fa-sign-out" style="font-size: small; text-transform:initial;"> logout</a> {%else%}
+                    <a href="/Login">User</a>
+                    <a href="/adminLogin">Admin</a> {%endif%}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- home section -->
+    {%block content%}
+    <section class="home" id="home">
+
+        <div class="content">
+            <h3>Book Store </h3>
+            <span>
+            "Adventure. Imagination. Wisdom."</span>
+            <p>The book store, nestled in the city's heart, welcomes with its inviting ambiance and diverse collection. Aromas of aged paper and freshly brewed coffee fill the air. Cozy reading nooks beckon, while knowledgeable staff offer recommendations.
+                More than a shop, it's a cultural hub where stories thrive, passions ignite, and connections flourish.</p>
+        </div>
+
+    </section>
+    {%endblock%}
+
+    <!-- footer section -->
+    <section class="footer">
+        <div class="credit">created by <span>shubhada chaugule</span>| all rights reserved</div>
+    </section>
+</body>
+
+</html>

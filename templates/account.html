@@ -1,0 +1,52 @@
+ {% extends "homepage.html" %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Basic styling for profile display */
+        
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        
+        .profile-info {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <div class="profile-container">
+        <center>
+            <h2>Welcome {{users[0]}}</h2>
+        </center>
+        <br><br>
+        <!-- <img class="profile-picture" src="profile-picture.jpg" alt="Profile Picture"> -->
+        <div class="profile-info">
+            <p><strong>Name:</strong> {{users[0]}}</p>
+            <p><strong>Email:</strong> {{users[2]}}</p>
+            <!-- <p><strong>Address:</strong> 123 Main St, City, Country</p> -->
+
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}
